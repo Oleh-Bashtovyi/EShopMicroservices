@@ -1,0 +1,12 @@
+USE POSTMAN ENVIRONMENTS AND COLLECTIONS
+
+Environments allows to define environment variables for different categories.
+Like EShop.Docker and EShopLocalhost. 
+EShop.Docker will store https://localhost:6060 - https://localhost:6063
+EShopLocalhost will store https://localhost:5050 - https://localhost:5053
+To access variables, select category in upper right corner on window.
+Now write {{VARIABLE_NAME}} somewhere, for example in url: "{{catalog_url}}/products"
+
+Collections allow grouping requests into different folders within a collection.
+Create collection and folders for all microservices.
+Add request and use environment variables like "{{catalog_url}}/products"

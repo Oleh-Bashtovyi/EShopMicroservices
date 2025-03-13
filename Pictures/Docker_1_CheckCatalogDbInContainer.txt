@@ -1,0 +1,15 @@
+Execute interactive terminal with bash scripts:
+
+---> docker ps  - list all containers
+
+---> docker exec  -it "container id" bash - connect to container and run bash terminal in it
+
+---> psql -U postgres  - execute PostgreSQL client inside the container ("-U postgres" - flag indicating to connect under the “postgres” user)
+ 
+---> \l  - list existing databases
+
+---> \c CatalogDb  - connect to database
+
+---> \d  - list tables
+
+---> SELECT * FROM mt_doc_product;  - check all items in products table

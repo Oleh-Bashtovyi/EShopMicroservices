@@ -1,3 +1,6 @@
+using Microsoft.CodeAnalysis;
+using Weasel.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
@@ -23,7 +26,15 @@ builder.Services.AddMediatR(config =>
 // This setup is ideal for handling complex data structures like product entity,
 // Which includes list of the categories and other varied data types
 // and product characteristics.
-
+// * LightweightSession - fast saving without competition control
+// * DirtyTrackedSession - automatic tracking of changes
+// * OptimisticConcurrencySession - control of competitiveness
+// * QuerySession - fast reading without transaction
+builder.Services.AddMarten(opts =>
+{
+    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
+    //opts.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
+}).UseLightweightSessions();
 
 
 var app = builder.Build();
