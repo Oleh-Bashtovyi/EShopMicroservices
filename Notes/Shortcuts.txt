@@ -1,0 +1,2 @@
+type: ctor + TAB - generate empty constructor
+type: prop + TAB - generate simple property

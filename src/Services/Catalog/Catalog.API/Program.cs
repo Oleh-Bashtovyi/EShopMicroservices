@@ -1,23 +1,30 @@
-using Microsoft.CodeAnalysis;
-using Weasel.Core;
-
+var assembly = typeof(Program).Assembly;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 // ==================================================================================
 
+builder.Services.AddValidatorsFromAssembly(assembly);
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(assembly);
+
+    // Add validation behavior as a pipeline behavior into mediatR
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+});
+
 // Endpoints were created using Carter library.
-// Currently if we install Carter to BuildingBlocks project,
+// Currently, if we install Carter to BuildingBlocks project,
 // it will not Map any classes that implements ICarterModule interface.
 // That`s because it will scan only BuildingBlocks project for those classes.
 // Unfortunately Marten library currently does not have ability
 // To config assembly scan, as MediatR do in next line.
 // So only solution is to install Carter in this project, and not in BuildingBlocks.
 builder.Services.AddCarter();
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-});
 
 // For products storage we will use PostgreSQL.
 // PostgreSQL has some NoSql db features:
@@ -43,5 +50,41 @@ var app = builder.Build();
 // ==================================================================================
 
 app.MapCarter();
+
+// The bes practice to handle global
+// exceptions is to use IExceptionHandler interface
+//==========================================================
+//app.UseExceptionHandler(exceptionHandlerApp =>
+//{
+//    exceptionHandlerApp.Run(async context =>
+//    {
+//        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+//        if (exception == null)
+//        {
+//            return;
+//        }
+
+//        var problemDetails = new ProblemDetails
+//        {
+//            Title = exception.Message,
+//            Status = StatusCodes.Status500InternalServerError,
+//            Detail = exception.StackTrace
+//        };
+
+//        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+//        logger.LogError(exception, exception.Message);
+
+//        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+//        context.Response.ContentType = "application/problem+json";
+
+//        await context.Response.WriteAsJsonAsync(problemDetails);
+//    });
+//});
+//==========================================================
+
+// The empty option parameter indicates that we are relying on custom configured handler
+app.UseExceptionHandler(opts => {});
+
+
 
 app.Run();

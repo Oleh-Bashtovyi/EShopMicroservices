@@ -6,7 +6,8 @@ public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 public record GetProductByIdResult(Product Product);
 
 internal class GetProductByIdQueryHandler
-    (IDocumentSession session, ILogger<GetProductByIdQueryHandler> logger) 
+    (IDocumentSession session) // Logging is handled in MediatR pipeline behavior 
+    //(IDocumentSession session, ILogger<GetProductByIdQueryHandler> logger) 
     : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
 {
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
@@ -17,7 +18,7 @@ internal class GetProductByIdQueryHandler
         // 2) Without the @ the query is simply converted to a string using ToString().
         // 3) With @ Serilog serializes the query to JSON, preserving all its fields.
         // For instance, it would be: GetProductsQueryHandler.Handle called with {"PageSize":10,"CategoryId":5}
-        logger.LogInformation("GetProductByIdQueryHandler.Handle called with {@Query}", query);
+        // logger.LogInformation("GetProductByIdQueryHandler.Handle called with {@Query}", query);
 
         var product = await session.LoadAsync<Product>(query.Id, cancellationToken);
 
