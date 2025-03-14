@@ -1,3 +1,7 @@
+using Catalog.API.Data;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 var assembly = typeof(Program).Assembly;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +47,18 @@ builder.Services.AddMarten(opts =>
     //opts.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
 }).UseLightweightSessions();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
+
+// HEALTH CHECKS
+builder.Services
+    .AddHealthChecks()
+    // Next line of code will be performed the health check for the PostgreSQL
+    // database within the catalog microservice
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
+
 
 var app = builder.Build();
 
@@ -51,7 +67,7 @@ var app = builder.Build();
 
 app.MapCarter();
 
-// The bes practice to handle global
+// The best practice to handle global
 // exceptions is to use IExceptionHandler interface
 //==========================================================
 //app.UseExceptionHandler(exceptionHandlerApp =>
@@ -86,5 +102,30 @@ app.MapCarter();
 app.UseExceptionHandler(opts => {});
 
 
+// HEALTH CHECKS
+// =================================================================================================
+// Repository that offers a wide collection of ASP.NET Core
+// Health Check packages for widely used services and platforms:
+// https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+// =================================================================================================
+// HealthCheck is a mechanism for monitoring the application's health and its dependencies.  
+// It is responsible for checking the status of services, databases, external APIs, and other components.  
+// Used for automatic issue detection, integration with orchestrators  
+// (Kubernetes, Docker) for automatic restarts, as well as load balancers.  
+// Example use case: monitoring database or Redis cache availability,  
+// checking access to external APIs, and redirecting traffic only to healthy instances.  
+// For example, if a database connection fails or an API becomes unresponsive,  
+// the health check can detect the failure and report it.  
+// Orchestrators like Kubernetes can then restart the failing container,  
+// while load balancers can redirect traffic from the failing instance to a healthy instance,  
+// ensuring minimal downtime and high availability of the application. 
+//
+// app.UseHealthChecks("/health"); - This is the minimum setting that creates the /health endpoint,
+//                                   which returns a 200 OK status if the program is running.
+//
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
