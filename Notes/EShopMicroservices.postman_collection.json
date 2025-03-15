@@ -277,7 +277,87 @@
 		},
 		{
 			"name": "Basket",
-			"item": []
+			"item": [
+				{
+					"name": "GetBasket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{basket_url}}/basket/some_name",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket",
+								"some_name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StoreBasket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Cart\":{\r\n        \"UserName\": \"some_name\",\r\n        \"Items\": [\r\n            {\r\n                \"ProductId\":\"0195919b-a6b1-4dd5-8a6b-4da45381bfa4\",\r\n                \"ProductName\": \"Cool product\",\r\n                \"Quantity\": 2,\r\n                \"Price\": 1234,\r\n                \"Color\": \"Green\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basket_url}}/basket",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket"
+							],
+							"query": [
+								{
+									"key": "UserName",
+									"value": "SomeUser",
+									"disabled": true
+								},
+								{
+									"key": "Items[0]",
+									"value": "First item",
+									"disabled": true
+								},
+								{
+									"key": "Items[1]",
+									"value": "Second item",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBasket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{basket_url}}/basket/some_name",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket",
+								"some_name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Discount",
