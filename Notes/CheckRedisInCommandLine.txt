@@ -1,0 +1,11 @@
+In container terminl (Container -> "Exec" tab) type:
+
+---> redis-cli  - used to connect to the Redis server and execute commands in its console.
+
+---> ping  - used to check connection
+
+---> set "some key" "some 55 value"
+
+---> get "some key"
+
+---> KEYS *  - list all keys in cache

@@ -279,7 +279,7 @@
 			"name": "Basket",
 			"item": [
 				{
-					"name": "GetBasket",
+					"name": "GetBasket_1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -297,7 +297,25 @@
 					"response": []
 				},
 				{
-					"name": "StoreBasket",
+					"name": "GetBasket_2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{basket_url}}/basket/poor_guy_ddd",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket",
+								"poor_guy_ddd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StoreBasket_1",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -340,7 +358,50 @@
 					"response": []
 				},
 				{
-					"name": "DeleteBasket",
+					"name": "StoreBasket_2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Cart\":{\r\n        \"UserName\": \"poor_guy_ddd\",\r\n        \"Items\": [\r\n            {\r\n                \"ProductId\":\"0195919b-a6b1-4dd5-8a6b-4da97481bfa4\",\r\n                \"ProductName\": \"The best product\",\r\n                \"Quantity\": 4,\r\n                \"Price\": 121,\r\n                \"Color\": \"Yellow\"\r\n            },\r\n            {\r\n                \"ProductId\":\"0198327d-a6b1-4dd5-8a6b-4da45381bfa4\",\r\n                \"ProductName\": \"Kerted\",\r\n                \"Quantity\": 1,\r\n                \"Price\": 9989,\r\n                \"Color\": \"Blue\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basket_url}}/basket",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket"
+							],
+							"query": [
+								{
+									"key": "UserName",
+									"value": "SomeUser",
+									"disabled": true
+								},
+								{
+									"key": "Items[0]",
+									"value": "First item",
+									"disabled": true
+								},
+								{
+									"key": "Items[1]",
+									"value": "Second item",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBasket_1",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -352,6 +413,41 @@
 							"path": [
 								"basket",
 								"some_name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBasket_2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{basket_url}}/basket/poor_guy_ddd",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"basket",
+								"poor_guy_ddd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckHealth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{basket_url}}/health",
+							"host": [
+								"{{basket_url}}"
+							],
+							"path": [
+								"health"
 							]
 						}
 					},
