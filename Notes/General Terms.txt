@@ -1,0 +1,172 @@
+---> SOLID Principles
+A set of five design principles that help create maintainable and scalable software:
+
+-> Single Responsibility Principle (SRP)
+-> Open/Closed Principle (OCP)
+-> Liskov Substitution Principle (LSP)
+-> Interface Segregation Principle (ISP)
+-> Dependency Inversion Principle (DIP)
+
+---> KISS (Keep It Simple, Stupid)
+This principle advocates for simplicity in design. Solutions should be as simple as possible, avoiding unnecessary complexity. Simple code is easier to understand, maintain, and has fewer bugs.
+---> YAGNI (You Aren't Gonna Need It)
+This principle suggests you should only implement features when they're actually needed, not because you anticipate needing them in the future. It helps prevent overengineering and feature bloat.
+---> SoC (Separation of Concerns)
+This principle involves dividing a program into distinct sections, each addressing a separate concern. This improves maintainability by allowing modifications to one section without affecting others.
+---> DIP (Dependency Inversion Principle)
+One of the SOLID principles that states:
+High-level modules should not depend on low-level modules. Both should depend on abstractions.
+Abstractions should not depend on details. Details should depend on abstractions.
+
+---> DI (Dependency Injection)
+A technique where an object receives other objects it depends on rather than creating them internally. This helps implement the Dependency Inversion Principle and makes code more testable and flexible.
+
+---> Clean Architecture
+A layered architectural approach proposed by Robert C. Martin that emphasizes separation of concerns:
+-> Entities: Core business objects
+-> Use Cases: Application-specific business rules
+-> Interface Adapters: Converts data between use cases and external formats
+-> Frameworks & Drivers: External frameworks, databases, UI, etc.
+The key concept is that dependencies point inward, with inner layers having no knowledge of outer layers.
+
+---> DDD (Domain-Driven Design)
+An approach to software development that:
+Focuses on the core domain and domain logic
+Bases complex designs on a model of the domain
+Involves collaboration between technical and domain experts
+Key concepts include bounded contexts, ubiquitous language, and aggregates.
+
+---> DDD with Clean Architecture
+When combined:
+-> Clean Architecture provides the technical structure
+-> DDD provides the organizational and domain modeling concepts
+-> Domain layer maps to Entities and Use Cases
+-> Application services implement use cases
+-> Infrastructure implements the outer layers
+
+---> CQRS (Command Query Responsibility Segregation)
+A pattern that separates read and write operations:
+-> Commands: Change state, don't return data
+-> Queries: Return data, don't change state
+This separation can improve performance, scalability, and security by allowing each side to be optimized independently.
+
+---> Anemic Domain Model
+An anemic domain model is a design pattern where domain objects (entities, value objects) contain little or no business logic, essentially serving as data containers. Key characteristics:
+-> Domain objects primarily contain properties (getters/setters)
+-> Business logic lives in separate service classes
+-> Domain objects lack behavior and encapsulation
+-> Often resembles a procedural style within an object-oriented structure
+-> Entities act mostly as data structures or DTOs (Data Transfer Objects)
+
+Problems:
+-> Violates object-oriented principles (encapsulation, data/behavior cohesion)
+-> Business logic is scattered across services
+-> Increases risk of duplicated logic
+-> Makes domain rules harder to enforce consistently
+-> Often leads to transaction script pattern
+
+---> Rich Domain Model
+A rich domain model encapsulates both data and behavior within domain objects. Key characteristics:
+-> Domain objects contain business methods and enforce business rules
+-> Entities protect their invariants through behavior
+-> Business logic is encapsulated where the data lives
+-> Value objects are immutable and define operations related to their purpose
+-> Domain services exist only for operations that don't naturally fit within entities
+
+Benefits:
+-> Better encapsulation and information hiding
+-> Rules enforced at the object level
+-> Reduced duplication of logic
+-> More natural object-oriented design
+-> Better alignment with Domain-Driven Design principles
+
+
+---> The Aggregate Root (Root Entity) Pattern
+The aggregate root is a special entity within an aggregate that:
+-> Acts as the entry point to the entire aggregate
+-> Controls access to all entities within the aggregate
+-> Enforces invariants across the entire aggregate
+-> Has a global identity (while other entities inside may have only local identity)
+-> Is the only object that outside objects can hold references to
+
+
+Layers in Clean Architecture, DDD, and Their Combination
+---> Clean Architecture Layers
+
+-> Entities (Enterprise Business Rules)
+Core business objects and logic
+Independent of applications, frameworks, and external concerns
+Represent the most stable part of the system
+Use Cases (Application Business Rules)
+
+-> Application-specific business rules
+Orchestrate the flow of data to and from entities
+Contain application-specific business rules
+Define interfaces the outer layers must implement
+
+-> Interface Adapters
+Convert data between use cases/entities and external formats
+Contains controllers, presenters, and gateways
+Transforms data for entities and external agencies
+
+-> Frameworks & Drivers (External Interfaces)
+Outermost layer with frameworks, tools, and delivery mechanisms
+Database, web frameworks, UI, devices
+"Details" that can be replaced with minimal impact
+
+
+
+---> Domain-Driven Design (DDD) Layers
+
+-> Domain Layer
+Core domain concepts (entities, value objects, aggregates)
+Domain services for operations that don't fit in entities
+Domain events
+Contains pure business logic
+
+-> Application Layer
+Thin coordination layer
+Orchestrates domain objects to perform tasks
+Handles transaction management
+Translates between domain and external representations
+
+-> Infrastructure Layer
+Technical implementations (repositories, messaging)
+Integrations with external systems
+Persistence mechanisms
+Technical services
+
+-> Presentation/UI Layer
+User interfaces and API endpoints
+Input handling and validation
+View models and controllers
+
+
+
+---> Clean Architecture + DDD Combined
+When combining these approaches:
+
+-> Domain Layer (Core)
+Contains entities, value objects, aggregates from DDD
+Maps to Entities in Clean Architecture
+Contains domain services and domain events
+Has no dependencies on outer layers
+
+-> Application Layer
+Implements use cases from Clean Architecture
+Contains application services from DDD
+Defines interfaces for repositories and infrastructure services
+Orchestrates domain objects to fulfill business use cases
+
+-> Interface Adapters Layer
+Contains repositories implementations
+Presenters and controllers
+Data mapping/transformation
+Query services (for CQRS if implemented)
+
+-> Infrastructure Layer
+Database access
+External API clients
+Messaging infrastructure
+Framework integrations
+UI components
