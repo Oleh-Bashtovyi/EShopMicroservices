@@ -1,0 +1,18 @@
+1) Open Visual Studio.
+
+2) Go to View → SQL Server Object Explorer.
+
+3) Click Add SQL Server.
+
+4) Use the following connection details:
+
+(IF USE JUST "localhost" IT FAILS)
+--> Server name: localhost,1433
+
+--> Authentication: SQL Server Authentication
+
+--> Login: sa
+
+--> Password: SwN12345678
+
+5) Click Connect.

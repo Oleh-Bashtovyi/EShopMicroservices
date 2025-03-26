@@ -1,0 +1,1 @@
+add-migration InitialCreate -OutputDir Data/Migration -Project Ordering.Infrastructure -StartupProject Ordering.API
