@@ -540,7 +540,176 @@
 		},
 		{
 			"name": "Ordering",
-			"item": []
+			"item": [
+				{
+					"name": "GetOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/orders",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrders_Pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/orders?PageIndex=0&PageSize=2",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "PageIndex",
+									"value": "0"
+								},
+								{
+									"key": "PageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrdersByCutomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/orders/customer/58c49479-ec65-4de2-86e7-033c546291aa",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders",
+								"customer",
+								"58c49479-ec65-4de2-86e7-033c546291aa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrdersByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/orders/ORD_",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders",
+								"ORD_"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"Order\": \r\n        {\r\n        \t\"CustomerId\": \"58c49479-ec65-4de2-86e7-033c546291aa\",\r\n            \"OrderName\": \"ORD_4\",\r\n            \"ShippingAddress\": \r\n            \t{\r\n            \t\t\"FirstName\": \"Valentina\",\r\n\t                \"LastName\": \"Legros\",\r\n\t                \"EmailAddress\": \"valeg@xmail.com\",\r\n\t                \"AddressLine\": \"Wiegand Pass Suite 825\",\r\n\t                \"Country\": \"USA\",\r\n\t                \"State\": \"Oklahoma\",\r\n\t                \"ZipCode\": \"41248\"\r\n            \t},\r\n            \"BillingAddress\": \r\n            \t{\r\n            \t\t\"FirstName\": \"Valentina\",\r\n\t                \"LastName\": \"Legros\",\r\n\t                \"EmailAddress\": \"valeg@xmail.com\",\r\n\t                \"AddressLine\": \"Wiegand Pass Suite 825\",\r\n\t                \"Country\": \"USA\",\r\n\t                \"State\": \"Oklahoma\",\r\n\t                \"ZipCode\": \"41248\"\r\n            \t},\r\n            \"Payment\": \r\n            \t{\r\n            \t\t\"CardName\": \"CARD_1\",\r\n\t                \"CardNumber\": \"875-444-3739\",\r\n\t                \"Expiration\": \"12/29\",\r\n\t                \"Cvv\": \"455\",\r\n\t                \"PaymentMethod\": 1\r\n            \t},\r\n            \"Status\": 2,\r\n            \"OrderItems\": [\r\n                {\r\n\t                \"ProductId\": \"5334c996-8457-4cf0-815c-ed2b77c4ff61\",\r\n\t                //\"ProductName\": \"IPhone X\",\r\n\t                \"Quantity\": 2,\r\n\t                \"Price\": 500\r\n                },\r\n                {\r\n\t                \"ProductId\": \"c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914\",\r\n\t                //\"ProductName\": \"Samsung 10\",\r\n\t                \"Quantity\": 1,\r\n\t                \"Price\": 500\r\n                }\r\n            ]  \r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ordering_url}}/orders",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOrder_1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"Order\": \r\n        {\r\n            \"Id\": \"360020af-e2ab-4b3f-87c9-6b7d0c5b53a5\",\r\n        \t\"CustomerId\": \"58c49479-ec65-4de2-86e7-033c546291aa\",\r\n            \"OrderName\": \"ORD_5\",\r\n            \"ShippingAddress\": \r\n            \t{\r\n            \t\t\"FirstName\": \"Mehmet\",\r\n\t                \"LastName\": \"Legros\",\r\n\t                \"EmailAddress\": \"valeg@xmail.com\",\r\n\t                \"AddressLine\": \"Wiegand Pass Suite 825\",\r\n\t                \"Country\": \"USA\",\r\n\t                \"State\": \"New York\",\r\n\t                \"ZipCode\": \"41248\"\r\n            \t},\r\n            \"BillingAddress\": \r\n            \t{\r\n            \t\t\"FirstName\": \"Mehmet\",\r\n\t                \"LastName\": \"Legros\",\r\n\t                \"EmailAddress\": \"valeg@xmail.com\",\r\n\t                \"AddressLine\": \"Wiegand Pass Suite 825\",\r\n\t                \"Country\": \"USA\",\r\n\t                \"State\": \"Oklahoma\",\r\n\t                \"ZipCode\": \"41248\"\r\n            \t},\r\n            \"Payment\": \r\n            \t{\r\n            \t\t\"CardName\": \"CARD_2\",\r\n\t                \"CardNumber\": \"875-444-3739\",\r\n\t                \"Expiration\": \"12/29\",\r\n\t                \"CVV\": \"455\",\r\n\t                \"PaymentMethod\": 1\r\n            \t},\r\n            \"Status\": 2,\r\n            \"OrderItems\": [\r\n                {\r\n\t                \"ProductId\": \"5334c996-8457-4cf0-815c-ed2b77c4ff61\",\r\n\t                //\"ProductName\": \"IPhone X\",\r\n\t                \"Quantity\": 2,\r\n\t                \"Price\": 500\r\n                },\r\n                {\r\n\t                \"ProductId\": \"c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914\",\r\n\t                //\"ProductName\": \"Samsung 10\",\r\n\t                \"Quantity\": 1,\r\n\t                \"Price\": 500\r\n                }\r\n            ]  \r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ordering_url}}/orders",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOrder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/orders/a526ba8e-534f-44c0-a4c7-a1a98ccabd34",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"orders",
+								"a526ba8e-534f-44c0-a4c7-a1a98ccabd34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckHealth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ordering_url}}/health",
+							"host": [
+								"{{ordering_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
